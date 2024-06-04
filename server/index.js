@@ -7,13 +7,10 @@ const dotenv = require('dotenv');
 dotenv.config(); // Load environment variables
 
 const app = express();
-
+const uri = "mongodb+srv://pranithtpm:X6kL7AycQoVRrePX@cluster0.j6batmc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then(() => console.log('MongoDB Connected'))
+mongoose.connect(uri)
+    .then(() => console.log('Pinged your deployment. You successfully connected to MongoDB!"'))
     .catch(err => console.error(err));
 
 // Middleware

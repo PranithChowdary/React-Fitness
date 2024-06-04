@@ -10,13 +10,12 @@ const App = () => {
   const handleLoginSuccess = (token) => {
     localStorage.setItem('fitfun-token', token);
   };
-
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
-        <Route path="/register" element={<RegistrationForm />} />
+        <Route path="/register" element={<RegistrationForm/>} />
 
         {/* Protected Route (Home Page) - Requires JWT token for access */}
         <Route path="/home" element={
@@ -37,7 +36,7 @@ const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('fitfun-token');
 
   if (!token) {
-    return <Navigate to="/login" replace />; // Redirect to login if no token
+    return <Navigate to="/home" replace />; // Redirect to login if no token
   }
 
   return children;
