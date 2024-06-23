@@ -56,7 +56,7 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
         e.preventDefault();
         try {
             const { data } = await axios.post(
-                "https://5000-pranithchow-reactfitnes-2f6c8ncpfb1.ws-us114.gitpod.io",
+                "http://localhost:5000/api/auth/register",
                 {
                     ...inputValue,
                 },
