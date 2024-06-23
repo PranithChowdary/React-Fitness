@@ -1,74 +1,70 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const { createSecretToken } = require("../util/SecretToken");
+const { userVerification } = require("../Middleware/Authmiddleware")
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 // Login route
 router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-
     try {
-        const user = await User.findOne({ username });
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.json({ message: 'All fields are required' })
+        }
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.status(401).json({ message: 'Invalid username' });
+            return res.json({ message: 'Incorrect password or email' })
         }
-
-        console.log("Original password : " + password);
-        console.log("Hashed password : " + user.password);
-
-        const isMatch = await bcrypt.compareSync(password, user.password); // Compare hashed passwords
-        console.log(isMatch)
-        if (!isMatch) {
-            return res.status(401).json({ message: 'Invalid password' });
+        const auth = await bcrypt.compare(password, user.password)
+        if (!auth) {
+            return res.json({ message: 'Incorrect password or email' })
         }
-
-        const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '3600s' }); // Generate JWT token
-        res.json({ token });
+        const token = createSecretToken(user._id);
+        res.cookie("token", token, {
+            withCredentials: true,
+            httpOnly: false,
+        });
+        res.status(201).json({ message: "User logged in successfully", success: true });
+        next()
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server Error');
     }
 });
 
 // Register route
 router.post('/register', async (req, res) => {
-    const { username, email, password } = req.body; // Extract data from request body
+    const { username, email, password, confirmPassword, createdAt } = req.body; // Extract data from request body
 
     // Validation (optional)
-    if (!username || !email || !password) {
+    if (!username || !email || !password || !confirmPassword) {
         return res.status(400).json({ message: 'Please fill in all fields' });
     }
 
+    if (password != confirmPassword) {
+        return res.status(400).json({ message: 'Password and Confirmation Password are not same..!' })
+    }
     try {
-        // Check for existing user
-        const existingUser = await User.findOne({ username: username });
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ message: 'Username already exists' });
+            return res.json({ message: "User already exists" });
         }
-
-        // Hash password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hashSync(password, salt);
-
-        // Create new user
-        const newUser = new User({
-            username,
-            email,
-            password: hashedPassword,
+        const user = await User.create({ email, username, password, confirmPassword, createdAt });
+        const token = createSecretToken(user._id);
+        res.cookie("token", token, {
+            withCredentials: true,
+            httpOnly: false,
         });
-
-        // Save user to database
-        const savedUser = await newUser.save();
-
-        // Respond with success (optional)
-        // You can choose to send a success message or a user object (without password)
-        res.json({ message: 'User created successfully!' });
-
+        res
+            .status(201)
+            .json({ message: "User signed in successfully", success: true, user });
+        next();
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server Error');
     }
 });
+
+router.post('/', userVerification)
 
 module.exports = router;
