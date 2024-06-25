@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs'); // For password hashing
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -15,10 +15,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Your password is required"],
     },
-    confirmPassword: {
-        type: String,
-      required: [true, "Passowrd is not matching with orginal password"]  
-    },
     createdAt: {
         type: Date,
         default: new Date(),
@@ -26,8 +22,16 @@ const userSchema = new mongoose.Schema({
 });
 
 // Hash password before saving user
-userSchema.pre("save", async function () {
-    this.password = await bcrypt.hash(this.password, 12);
+userSchema.pre("save", async function (next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+    try {
+        this.password = await bcrypt.hash(this.password, 12);
+        next();
+    } catch (err) {
+        next(err);
+    }
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
+import Profile from './components/Profile'
 import LoginForm from './components/LoginForm';
-import RegistrationForm from './components/RegistrationForm';
-import HomePage from './components/HomePage'; // Placeholder for Home Page
-
+import SignUp from './components/SignUp';
+import HomePage from './components/HomePage';
 
 const App = () => {
   return (
@@ -12,15 +12,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegistrationForm />} />
-
-        {/* Protected Route (Home Page) - Requires JWT token for access */}
+        <Route path="/register" element={<SignUp />} />
         <Route path="/home" element={<HomePage />} />
-        {/* 
-        Error Handling for Unauthorized Access
-        <Route path="*" element={<div>Unauthorized access!</div>} /> */}
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );
 };
+
 export default App;

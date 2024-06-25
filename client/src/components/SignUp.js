@@ -15,18 +15,16 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-
 const defaultTheme = createTheme();
 
 const Ulstyle = styled(Stack)(({ theme }) => ({
-    // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
     height: '720px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
 }));
 
-const RegistrationForm = ({ OnRegisterSucess }) => {
+const RegistrationForm = () => {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
         email: "",
@@ -34,7 +32,7 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
         username: "",
         confirmPassword: "",
     });
-    const { email, password, username, confirmPassword } = inputValue;
+
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setInputValue({
@@ -47,6 +45,7 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
         toast.error(err, {
             position: "bottom-left",
         });
+
     const handleSuccess = (msg) =>
         toast.success(msg, {
             position: "bottom-right",
@@ -56,33 +55,30 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
         e.preventDefault();
         try {
             const { data } = await axios.post(
-                "http://localhost:5000/api/auth/register",
-                {
-                    ...inputValue,
-                },
+                "http://localhost:4000/register",
+                { ...inputValue },
                 { withCredentials: true }
             );
             const { success, message } = data;
             if (success) {
                 handleSuccess(message);
                 setTimeout(() => {
-                    navigate("/");
-                }, 1000);
+                    navigate("/login");
+                }, 3000); // Navigate to home page after 3 seconds
             } else {
                 handleError(message);
             }
         } catch (error) {
-            console.log(error);
+            console.error('Error signing up:', error);
+            handleError("Signup failed. Please try again.");
         }
         setInputValue({
-            ...inputValue,
             email: "",
             password: "",
             username: "",
             confirmPassword: "",
         });
     };
-
 
     return (
         <Ulstyle>
@@ -115,7 +111,7 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
                                         required
                                         fullWidth
                                         id="username"
-                                        value={username}
+                                        value={inputValue.username}
                                         label="Username"
                                         onChange={handleOnChange}
                                         autoFocus
@@ -127,7 +123,7 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
                                         fullWidth
                                         id="email"
                                         label="Email Address"
-                                        value={email}
+                                        value={inputValue.email}
                                         name="email"
                                         onChange={handleOnChange}
                                         autoComplete="email"
@@ -139,7 +135,7 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
                                         fullWidth
                                         name="password"
                                         label="Password"
-                                        value={password}
+                                        value={inputValue.password}
                                         type="password"
                                         id="password"
                                         onChange={handleOnChange}
@@ -152,7 +148,7 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
                                         fullWidth
                                         name="confirmPassword"
                                         label="Confirm Password"
-                                        value={confirmPassword}
+                                        value={inputValue.confirmPassword}
                                         type="password"
                                         id="confirmPassword"
                                         onChange={handleOnChange}
@@ -176,8 +172,8 @@ const RegistrationForm = ({ OnRegisterSucess }) => {
                             </Grid>
                         </Box>
                     </Box>
+                    <ToastContainer />
                 </Container>
-                <ToastContainer />
             </ThemeProvider>
         </Ulstyle>
     );

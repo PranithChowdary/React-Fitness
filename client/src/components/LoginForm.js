@@ -12,26 +12,44 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const defaultTheme = createTheme();
 
-const LoginForm = ({ onLoginSuccess }) => {
-    const [username, setUsername] = useState('');
+const LoginForm = () => {
+    const navigate = useNavigate();
+    const [email, setemail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const handleError = (err) =>
+        console.error('Error signing in:', err); // Basic error handling
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/login', { username, password });
-            const token = response.data.token;
-            onLoginSuccess(token); // Pass the JWT token to parent component
+            const response = await axios.post('http://localhost:4000/login', { email, password });
+            const { success, message, token } = response.data;
+            if (success) {
+                // Handle successful login
+                console.log(message); // Log success message
+                console.log(token);
+                console.log(setError);
+                setTimeout(() => {
+                    navigate('/home'); // Navigate to home page after successful login
+                }, 3000); // Navigate to home page after 3 seconds
+            } else {
+                // Handle login failure
+                handleError(message);
+            }
         } catch (error) {
-            console.error(error);
-            // Handle login errors (e.g., invalid credentials)
+            console.error('Error signing in:', error);
+            // Handle network errors or other exceptions
+            handleError("Login failed. Please try again.");
         }
     };
-
+    
     return (
         <ThemeProvider theme={defaultTheme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
@@ -42,7 +60,6 @@ const LoginForm = ({ onLoginSuccess }) => {
                     sm={4}
                     md={7}
                     sx={{
-                        // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -72,10 +89,12 @@ const LoginForm = ({ onLoginSuccess }) => {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Username"
-                                name="username"
-                                autoComplete="username"
-                                onChange={(e) => setUsername(e.target.value)}
+                                type='email'
+                                label="Email"
+                                name="email"
+                                autoComplete="email"
+                                value={email}
+                                onChange={(e) => setemail(e.target.value)}
                                 autoFocus
                             />
                             <TextField
@@ -86,6 +105,7 @@ const LoginForm = ({ onLoginSuccess }) => {
                                 label="Password"
                                 type="password"
                                 id="password"
+                                value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 autoComplete="current-password"
                             />
@@ -93,6 +113,7 @@ const LoginForm = ({ onLoginSuccess }) => {
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             />
+                            {error && <Typography color="error" variant="body2">{error}</Typography>}
                             <Button
                                 type="submit"
                                 fullWidth
