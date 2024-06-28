@@ -1,50 +1,93 @@
 import React from 'react';
-import { Typography, Button, Grid, Stack, styled } from '@mui/material';
+// import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+const defaultTheme = createTheme();
 
-// const StyledContainer = styled(Container)(({ theme }) => ({
-//     backgroundImage: `url(/land.jpeg)`, // Assuming the image is in the public folder
-//     backgroundRepeat: 'no-repeat',
-//     backgroundSize: 'cover',
-//     backgroundPosition: 'center',
-//     minHeight: '100vh',
-//     minWidth: '200vh',
-//     display: 'flex',
-//     flexDirection: 'column',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-// }));
 
-const Content = styled(Stack)(({ theme }) => ({
-    backgroundColor: '#79d8f7', 
-    padding: theme.spacing(4),
-    borderRadius: theme.shape.borderRadius,
-}));
+const RoundedButton = styled.button`
+  background-color: #1d94f0;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  width: 150px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #8bc3f7;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 const LandingPage = () => {
+
+    let navigate = useNavigate();
+    const loginRoute = ()=>{
+        navigate('/login');
+    }
+    const singupRoute = () => {
+        navigate('/register');
+    }
     return (
-        // <StyledContainer maxWidth="lg">
-            <Content spacing={2}>
-                <Grid item xs={12}>
-                    <Typography variant="h1" component="h1" gutterBottom>
-                        Fit & Fun: Your AI-Powered Workout Companion
-                    </Typography>
+        <ThemeProvider theme={defaultTheme}>
+            <Grid container component="main" sx={{ height: '100vh' }}>
+                <CssBaseline />
+                <Grid
+                    item
+                    xs={false}
+                    sm={4}
+                    md={7}
+                    sx={{
+                        backgroundImage: 'url(http://localhost:3000/land.jpeg)',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: (t) =>
+                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                />
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                    <Box
+                        sx={{
+                            my: 8,
+                            mx: 4,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Typography component="div" align="center">
+                            <Typography component="h1" variant="h2">
+                                Fit & Fun:
+                            </Typography>
+                            <Typography component="h1" variant="h3">
+                                Your AI-Powered
+                            </Typography>
+                            <Typography component="h1" variant="h3">
+                                Workout Companion
+                            </Typography>
+                        </Typography>
+                        <br></br>
+                        <br></br>
+                        <RoundedButton variant="contained" onClick={loginRoute}>SIGN IN</RoundedButton>
+                        <br></br>
+                        <RoundedButton variant="contained" onClick={singupRoute}>SIGN UP</RoundedButton>
+                    </Box>
                 </Grid>
-                <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <Button variant="contained" size="large" fullWidth href='/login'>
-                                Sign In
-                            </Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button variant="contained" size="large" fullWidth href='/register'>
-                                Sign Up
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Content>
-        /* </StyledContainer> */
+            </Grid>
+        </ThemeProvider>
     );
 };
 

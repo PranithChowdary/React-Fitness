@@ -60,9 +60,10 @@ const LoginForm = () => {
                     sm={4}
                     md={7}
                     sx={{
+                        backgroundImage: 'url(http://localhost:3000/aurora.jpg)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
@@ -124,7 +125,7 @@ const LoginForm = () => {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
+                                    <Link href="/forgotPassword" variant="body2">
                                         Forgot password?
                                     </Link>
                                 </Grid>

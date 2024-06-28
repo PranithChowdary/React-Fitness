@@ -25,35 +25,35 @@ const CustomDrawer = ({ open, onClose, pageClick }) => {
                         </ListItemIcon>
                         <ListItemText primary="Home" />
                     </ListItem>
-                    <ListItem button onClick={() => pageClick('/career')}>
+                    <ListItem button onClick={() => pageClick('/workoutplan')}>
                         <ListItemIcon>
                             <WorkIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Career" />
+                        <ListItemText primary="Workout Planner" />
                     </ListItem>
-                    <ListItem button onClick={() => pageClick('/travel')}>
+                    <ListItem button onClick={() => pageClick('/dietplan')}>
                         <ListItemIcon>
                             <MapIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Travel" />
+                        <ListItemText primary="Diet Planner" />
                     </ListItem>
-                    <ListItem button onClick={() => pageClick('/goals')}>
+                    <ListItem button onClick={() => pageClick('/account')}>
                         <ListItemIcon>
                             <FlagIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Goals" />
+                        <ListItemText primary="My Account" />
                     </ListItem>
-                    <ListItem button onClick={() => pageClick('/personal')}>
+                    <ListItem button onClick={() => pageClick('/devTeam')}>
                         <ListItemIcon>
                             <ThreePIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Personals" />
+                        <ListItemText primary="Developers" />
                     </ListItem>
-                    <ListItem button onClick={() => pageClick('/docs')}>
+                    <ListItem button onClick={() => pageClick('/logout')}>
                         <ListItemIcon>
                             <InventoryIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Documents" />
+                        <ListItemText primary="Logout" />
                     </ListItem>
                 </List>
             </div>

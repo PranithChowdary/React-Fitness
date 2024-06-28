@@ -17,8 +17,9 @@ import axios from 'axios';
 
 const defaultTheme = createTheme();
 
-const Ulstyle = styled(Stack)(({ theme }) => ({
+const Ulstyle = styled(Stack)(() => ({
     height: '720px',
+    backgroundImage: 'url(http://localhost:3000/landscape.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -42,14 +43,10 @@ const RegistrationForm = () => {
     };
 
     const handleError = (err) =>
-        toast.error(err, {
-            position: "bottom-left",
-        });
+        toast.error(err, {});
 
     const handleSuccess = (msg) =>
-        toast.success(msg, {
-            position: "bottom-right",
-        });
+        toast.success(msg, {});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -64,13 +61,13 @@ const RegistrationForm = () => {
                 handleSuccess(message);
                 setTimeout(() => {
                     navigate("/login");
-                }, 3000); // Navigate to home page after 3 seconds
+                }, 2000); 
             } else {
                 handleError(message);
             }
         } catch (error) {
-            console.error('Error signing up:', error);
-            handleError("Signup failed. Please try again.");
+            console.log('Error signing up:', error.response.data.message);
+            handleError(error.response.data.message)
         }
         setInputValue({
             email: "",
@@ -163,6 +160,7 @@ const RegistrationForm = () => {
                             >
                                 Sign Up
                             </Button>
+                            <ToastContainer icon={false}/>
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
                                     <Link href="/login" variant="body2">
@@ -172,7 +170,6 @@ const RegistrationForm = () => {
                             </Grid>
                         </Box>
                     </Box>
-                    <ToastContainer />
                 </Container>
             </ThemeProvider>
         </Ulstyle>
