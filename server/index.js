@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 const cookieParser = require("cookie-parser");
 const authRoute = require("./routes/auth");
+const generateRoute = require('./routes/workout');
+const workoutplanRoute = require('./routes/workoutplan');
 require("dotenv").config();
 
 const { MONGO_URL } = process.env;
@@ -31,6 +33,8 @@ app.use(express.json());
 
 // Routes
 app.use('/', authRoute);
+app.use('/', generateRoute);
+app.use('/', workoutplanRoute);
 
 const port = process.env.PORT || 4000;
 

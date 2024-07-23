@@ -17,7 +17,14 @@ module.exports = {
       'react',
     ],
     rules: {
-  
+      "jsx-a11y/anchor-is-valid": [
+      "off",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["noHref", "invalidHref", "preferButton"]
+      }
+    ],
       'react/function-component-definition': 0,
       'import/extensions': 0,
       'react/prop-types': 0,

@@ -11,4 +11,6 @@ module.exports.createSecretToken = (res, userId) => {
         sameSite: 'strict', // Prevent CSRF attacks
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
+    // res.status(201).json({ message: 'Cookie set:', name: 'jwt', value: token })
+
 };

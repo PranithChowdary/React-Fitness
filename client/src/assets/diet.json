@@ -1,0 +1,259 @@
+{
+    "muscleGroup": "Legs",
+    "dietPlan": {
+        "Monday": {
+            "meals": [
+                {
+                    "name": "Breakfast",
+                    "items": [
+                        "Oatmeal with berries",
+                        "1 boiled egg"
+                    ],
+                    "calories": 350
+                },
+                {
+                    "name": "Lunch",
+                    "items": [
+                        "Grilled chicken breast",
+                        "Quinoa salad",
+                        "Steamed broccoli"
+                    ],
+                    "calories": 600
+                },
+                {
+                    "name": "Dinner",
+                    "items": [
+                        "Salmon fillet",
+                        "Roasted sweet potatoes",
+                        "Mixed greens salad"
+                    ],
+                    "calories": 500
+                },
+                {
+                    "name": "Snacks",
+                    "items": [
+                        "Greek yogurt with honey",
+                        "Almonds"
+                    ],
+                    "calories": 200
+                }
+            ]
+        },
+        "Tuesday": {
+            "meals": [
+                {
+                    "name": "Breakfast",
+                    "items": [
+                        "Smoothie with spinach, banana, and protein powder",
+                        "Whole-grain toast"
+                    ],
+                    "calories": 400
+                },
+                {
+                    "name": "Lunch",
+                    "items": [
+                        "Turkey wrap with whole-grain tortilla",
+                        "Carrot sticks",
+                        "Apple"
+                    ],
+                    "calories": 550
+                },
+                {
+                    "name": "Dinner",
+                    "items": [
+                        "Stir-fried tofu with vegetables",
+                        "Brown rice"
+                    ],
+                    "calories": 500
+                },
+                {
+                    "name": "Snacks",
+                    "items": [
+                        "Protein bar",
+                        "Berries"
+                    ],
+                    "calories": 200
+                }
+            ]
+        },
+        "Wednesday": {
+            "meals": [
+                {
+                    "name": "Breakfast",
+                    "items": [
+                        "Greek yogurt with granola and berries"
+                    ],
+                    "calories": 300
+                },
+                {
+                    "name": "Lunch",
+                    "items": [
+                        "Grilled shrimp salad with avocado",
+                        "Whole-grain roll"
+                    ],
+                    "calories": 600
+                },
+                {
+                    "name": "Dinner",
+                    "items": [
+                        "Beef stir-fry with mixed vegetables",
+                        "Brown rice"
+                    ],
+                    "calories": 550
+                },
+                {
+                    "name": "Snacks",
+                    "items": [
+                        "Cottage cheese",
+                        "Fruit smoothie"
+                    ],
+                    "calories": 200
+                }
+            ]
+        },
+        "Thursday": {
+            "meals": [
+                {
+                    "name": "Breakfast",
+                    "items": [
+                        "Scrambled eggs with spinach and tomatoes",
+                        "Whole-grain toast"
+                    ],
+                    "calories": 350
+                },
+                {
+                    "name": "Lunch",
+                    "items": [
+                        "Chicken Caesar salad",
+                        "Whole-grain roll"
+                    ],
+                    "calories": 600
+                },
+                {
+                    "name": "Dinner",
+                    "items": [
+                        "Grilled fish tacos with slaw",
+                        "Black beans"
+                    ],
+                    "calories": 500
+                },
+                {
+                    "name": "Snacks",
+                    "items": [
+                        "Hummus with veggie sticks",
+                        "Mixed nuts"
+                    ],
+                    "calories": 200
+                }
+            ]
+        },
+        "Friday": {
+            "meals": [
+                {
+                    "name": "Breakfast",
+                    "items": [
+                        "Protein pancakes with banana",
+                        "Greek yogurt"
+                    ],
+                    "calories": 400
+                },
+                {
+                    "name": "Lunch",
+                    "items": [
+                        "Quinoa and black bean salad",
+                        "Mixed greens"
+                    ],
+                    "calories": 550
+                },
+                {
+                    "name": "Dinner",
+                    "items": [
+                        "Baked chicken with roasted vegetables",
+                        "Sweet potato mash"
+                    ],
+                    "calories": 550
+                },
+                {
+                    "name": "Snacks",
+                    "items": [
+                        "Smoothie with almond milk, spinach, and berries",
+                        "Granola bar"
+                    ],
+                    "calories": 200
+                }
+            ]
+        },
+        "Saturday": {
+            "meals": [
+                {
+                    "name": "Breakfast",
+                    "items": [
+                        "Avocado toast with poached eggs",
+                        "Fruit salad"
+                    ],
+                    "calories": 400
+                },
+                {
+                    "name": "Lunch",
+                    "items": [
+                        "Grilled chicken sandwich with avocado",
+                        "Side salad"
+                    ],
+                    "calories": 600
+                },
+                {
+                    "name": "Dinner",
+                    "items": [
+                        "Spaghetti with turkey meatballs",
+                        "Steamed green beans"
+                    ],
+                    "calories": 550
+                },
+                {
+                    "name": "Snacks",
+                    "items": [
+                        "Cottage cheese with pineapple",
+                        "Protein shake"
+                    ],
+                    "calories": 200
+                }
+            ]
+        },
+        "Sunday": {
+            "meals": [
+                {
+                    "name": "Breakfast",
+                    "items": [
+                        "Omelette with mushrooms and cheese",
+                        "Whole-grain toast"
+                    ],
+                    "calories": 350
+                },
+                {
+                    "name": "Lunch",
+                    "items": [
+                        "Tuna salad with mixed greens",
+                        "Whole-grain crackers"
+                    ],
+                    "calories": 550
+                },
+                {
+                    "name": "Dinner",
+                    "items": [
+                        "Chicken stir-fry with broccoli",
+                        "Brown rice"
+                    ],
+                    "calories": 500
+                },
+                {
+                    "name": "Snacks",
+                    "items": [
+                        "Apple slices with peanut butter",
+                        "Trail mix"
+                    ],
+                    "calories": 200
+                }
+            ]
+        }
+    }
+}

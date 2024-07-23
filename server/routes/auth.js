@@ -25,7 +25,14 @@ router.post('/login', async (req, res) => {
 
         createSecretToken(res, user._id);
 
+
         res.status(200).json({ message: "User logged in successfully", success: true });
+        
+        const Userdata = await User.findOne({email})
+
+        const jsonContent = JSON.stringify(Userdata);
+        res.json(jsonContent);
+
     } catch (error) {
         console.error('Error in /login route:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -46,7 +53,11 @@ router.post('/register', async (req, res) => {
     }
 
     try {
+        const existingUsername = await User.findOne({ username });
         const existingUser = await User.findOne({ email });
+        if (existingUsername) {
+            return res.status(409).json({ message: "Username is already Taken..! Try Another one."})
+        }
         if (existingUser) {
             return res.status(409).json({ message: "User already exists" });
         }
@@ -55,7 +66,7 @@ router.post('/register', async (req, res) => {
         await user.save();
 
         createSecretToken(res, user._id);
-
+        
         res.status(201).json({ message: "User signed up successfully", success: true, user });
     } catch (error) {
         console.error('Error in /register route:', error);

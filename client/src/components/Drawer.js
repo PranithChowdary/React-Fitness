@@ -37,11 +37,11 @@ const CustomDrawer = ({ open, onClose, pageClick }) => {
                         </ListItemIcon>
                         <ListItemText primary="Diet Planner" />
                     </ListItem>
-                    <ListItem button onClick={() => pageClick('/account')}>
+                    <ListItem button onClick={() => pageClick('/progress')}>
                         <ListItemIcon>
                             <FlagIcon />
                         </ListItemIcon>
-                        <ListItemText primary="My Account" />
+                        <ListItemText primary="Progress Tracker" />
                     </ListItem>
                     <ListItem button onClick={() => pageClick('/devTeam')}>
                         <ListItemIcon>
