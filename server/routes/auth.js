@@ -28,10 +28,6 @@ router.post('/login', async (req, res) => {
 
         res.status(200).json({ message: "User logged in successfully", success: true });
         
-        const Userdata = await User.findOne({email})
-
-        const jsonContent = JSON.stringify(Userdata);
-        res.json(jsonContent);
 
     } catch (error) {
         console.error('Error in /login route:', error);
