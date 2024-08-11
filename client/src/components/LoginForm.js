@@ -31,15 +31,14 @@ const LoginForm = () => {
         try {
             const response = await axios.post('http://localhost:4000/login', { email, password });
             const { success, message, token } = response.data;
+            localStorage.setItem("token", token);
             if (success) {
                 // Handle successful login
                 console.log(message); // Log success message
                 console.log(token);
                 console.log(setError);
-                setTimeout(() => {
-                    navigate('/home'); // Navigate to home page after successful login
-                }, 3000); // Navigate to home page after 3 seconds
-            } else {
+                navigate('/home');
+                } else {
                 // Handle login failure
                 handleError(message);
             }

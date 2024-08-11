@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
     Table,
     TableBody,
@@ -6,17 +7,30 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    Paper,
     Collapse,
     IconButton,
     Box,
-    Button,
-    Typography } from "@mui/material";
+    Paper,
+    Typography
+} from "@mui/material";
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import dietPlan from '../assets/diet.json';
 
-function DietPlan(){
+function DietPlan() {
     const [openRows, setOpenRows] = useState({});
+    const [diet, setDiet] = useState(null);
+
+    useEffect(() => {
+        const fetchPlans = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/getDietPlans');
+                // console.log('Fetched data:', response.data[0].plan);
+                setDiet(response.data[0].plan);
+            } catch (error) {
+                console.error('Error fetching plans:', error);
+            }
+        };
+        fetchPlans();
+    }, []);
 
     const handleRowClick = (day) => {
         setOpenRows((prev) => ({ ...prev, [day]: !prev[day] }));
@@ -33,19 +47,20 @@ function DietPlan(){
             </Box>
         ));
     };
+
     return (
-        <>
-            <TableContainer sx={{ display:'flex' }}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell />
-                            <TableCell><b>Day</b></TableCell>
-                            <TableCell><b>Meals</b></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {Object.entries(dietPlan.dietPlan).map(([day, { meals }]) => (
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell />
+                        <TableCell><b>Day</b></TableCell>
+                        <TableCell><b>Meals</b></TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {diet ? (
+                        Object.entries(diet.dietPlan).map(([day, { meals }]) => (
                             <React.Fragment key={day}>
                                 <TableRow onClick={() => handleRowClick(day)}>
                                     <TableCell>
@@ -68,17 +83,18 @@ function DietPlan(){
                                     </TableCell>
                                 </TableRow>
                             </React.Fragment>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <br/>
-            <br/>
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-                    <Button variant="contained">Generate Another Plan</Button>
-                    <Button variant="contained">Save Plan</Button>
-            </Box>
-        </>
-        );
-    };
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={3} align="center">
+                                <Typography variant="body1">Loading...</Typography>
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
+}
+
 export default DietPlan;

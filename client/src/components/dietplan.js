@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 // import ChatComponent from './chat';
 import DietPlan from './Diet';
 import Archive from './Archive'
-import SavedPlans from './Browseplan';
+import CreatDietplan from './Createplan'
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -54,16 +54,15 @@ export default function BasicTabs() {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                <DietPlan />
+                <CreatDietplan />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
+                <DietPlan />
                 {/* <SaveDiet /> */}
-                Save Diet
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
                 {/* <ChatComponent /> */}
-                Archieve Diet
-                {/* <ArchiveDiet /> */}
+                <Archive />
             </CustomTabPanel>
         </Box>
     );

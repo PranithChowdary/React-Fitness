@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { IconButton, Toolbar } from '@mui/material';
+import { Button, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CustomDrawer from './Drawer';
 import { useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import { Avatar } from '@mui/material';
@@ -15,6 +14,8 @@ import ChatBot from 'react-simple-chatbot';
 import quotes from './qoutes.json';
 import SearchExercises from './SearchExcercises';
 import Exercises from '../components/Exercises';
+import Buttons from './buttons';
+import useravatar from '../assets/images/user.jpg';
 
 
 const Home = () => {
@@ -22,8 +23,12 @@ const Home = () => {
     const [quote, setQuote] = useState('');
     const navigate = useNavigate();
 
-    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+    const settings = ['Profile', 'Logout'];
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const pageClick = (path) => {
+        navigate(path);
+    };
 
     const steps = [
         {
@@ -39,6 +44,18 @@ const Home = () => {
         {
             id: '3',
             message: 'Hi {previousValue}, nice to meet you!',
+            trigger: '4',
+        },
+        {
+            id: '4',
+            message: 'Choose one of the below to assist you',
+            trigger: '5',
+        },
+        {
+            id: '5',
+            component: (
+                <Buttons pageClick={pageClick} />
+            ),
             end: true,
         }
     ];
@@ -66,9 +83,6 @@ const Home = () => {
         setAnchorElUser(null);
     };
 
-    const pageClick = (path) => {
-        navigate(path);
-    };
 
     useEffect(() => {
         if (quotes.length === 0) {
@@ -96,7 +110,7 @@ const Home = () => {
                 <Box sx={{ml: 165}}>
                     <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            <Avatar alt="Remy Sharp" src={useravatar} />
                         </IconButton>
                     </Tooltip>
                     <Menu
@@ -117,7 +131,7 @@ const Home = () => {
                     >
                         {settings.map((setting) => (
                             <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">{setting}</Typography>
+                                <Button textAlign="center" onClick={() => pageClick('/')}>{setting}</Button>
                             </MenuItem>
                         ))}
                     </Menu>

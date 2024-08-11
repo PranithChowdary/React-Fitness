@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const authRoute = require("./routes/auth");
 const generateRoute = require('./routes/workout');
 const workoutplanRoute = require('./routes/workoutplan');
+const dietplanRoute = require('./routes/dietplan');
 require("dotenv").config();
 
 const { MONGO_URL } = process.env;
@@ -35,6 +36,7 @@ app.use(express.json());
 app.use('/', authRoute);
 app.use('/', generateRoute);
 app.use('/', workoutplanRoute);
+app.use('/', dietplanRoute);
 
 const port = process.env.PORT || 4000;
 

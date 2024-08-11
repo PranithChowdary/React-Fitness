@@ -32,7 +32,7 @@ import axios from "axios";
 const questions = [
   { type: "radio", text: "What's your gender?", options: ["Male", "Female", "Other"] },
   { type: "height", text: "What's your height?" },
-  { type: "number", text: "What's your weight in kgs?" },
+  { type: "number", text: "What's your weight in lbs?" },
   { type: "eq", text: "What kind of Equipment do you have access to?"},
   { type: "checkbox", text: "What are your fitness goals?", options: ["Bulk", "Cut", "Healthy", "Increase Energy"] },
   { type: "select", text: "Which muscle groups do you want to focus on?", options: ["Abs", "Chest", "Upper Body", "Lower Body", "Legs", "Full Body"] },
@@ -55,7 +55,6 @@ function Plan() {
   const [workouts, setWorkouts] = useState(null);
   const [heightInMeters, setheightInMeters] = useState(null);
   const [bmi, setbmi] = useState(null);
-  const [bmiPrime, setbmiPrime] = useState(null);
   const [ponderalIndex, setponderalIndex] = useState(null);
 
   useEffect(() => {
@@ -85,8 +84,7 @@ function Plan() {
 
     const height = (((parseInt(formData.heightFeet)*12)+parseInt(formData.heightInches))*0.0254);
     setheightInMeters(height);
-    setbmi(parseInt(formData.weight) / (height ** 2));
-    setbmiPrime(bmi / 25);
+    setbmi(parseInt(formData.weight * 0.453592) / (height ** 2));
     setponderalIndex(parseInt(formData.weight) / (height ** 3));
 
     setTimeout(() => {
@@ -107,7 +105,7 @@ function Plan() {
     categoryColor = 'green';
   } else if (bmi >= 25 && bmi < 30) {
     category = 'Overweight';
-    categoryColor = 'yellow';
+    categoryColor = '#f2ac07';
   } else {
     category = 'Obesity';
     categoryColor = 'red';
@@ -132,7 +130,7 @@ function Plan() {
   const handleSavePlan = async () => {
     try {
       const response = await axios.post('http://localhost:4000/saveWorkoutPlan', { muscleGroup: formData.muscleGroup, plan: workoutPlan });
-      // console.log('Plan saved:', response.data);
+      console.log('Plan saved');
     } catch (error) {
       console.error('Error saving plan:', error);
     }
@@ -161,9 +159,9 @@ function Plan() {
                       <Typography variant="body1">
                         Healthy weight for the height: {healthyWeightMin.toFixed(1)} kg - {healthyWeightMax.toFixed(1)} kg
                       </Typography>
-                      <Typography variant="body1">
+                      {/* <Typography variant="body1">
                         BMI Prime: {bmiPrime.toFixed(2)}
-                      </Typography>
+                      </Typography> */}
                       <Typography variant="body1">
                         Ponderal Index: {ponderalIndex.toFixed(1)} kg/m³
                       </Typography>
@@ -287,7 +285,7 @@ function Plan() {
                 )}
                 {question.type === "number" && (
                   <TextField
-                    label="Weight in Kgs"
+                    label="Weight in lbs"
                     id="weight"
                     name="weight"
                     type="number"
