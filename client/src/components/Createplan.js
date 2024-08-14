@@ -107,7 +107,7 @@ function CreateDietPlan() {
 
     const handleSavePlan = async () => {
         try {
-            const response = await axios.post('http://localhost:4000/saveDietPlan', { DietaryPreferences: formData.dietaryPreferences, plan: dietPlan });
+            const response = await axios.post('react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app/saveDietPlan', { DietaryPreferences: formData.dietaryPreferences, plan: dietPlan });
             console.log('Diet Plan saved');
         } catch (error) {
             console.error('Error saving plan:', error);

@@ -52,7 +52,7 @@ const RegistrationForm = () => {
         e.preventDefault();
         try {
             const { data } = await axios.post(
-                "http://localhost:4000/register",
+                "react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app/register",
                 { ...inputValue },
                 { withCredentials: true }
             );

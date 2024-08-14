@@ -15,7 +15,7 @@ function Profile() {
     // Fetch user profile data from the server
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/getUserProfile', { useremail });
+        const response = await axios.get('react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app/getUserProfile', { useremail });
         setProfileData(response.data);
         console.log(response.data)
       } catch (error) {
@@ -37,7 +37,7 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:4000/updateUserProfile', profileData, {
+      await axios.post('react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app/updateUserProfile', profileData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
