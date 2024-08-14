@@ -29,7 +29,6 @@ import { KeyboardArrowUp, KeyboardArrowDown } from "@mui/icons-material";
 import dietPlans from '../assets/diet.json';
 import axios from "axios";
 
-
 const dietQuestions = [
     { type: "radio", text: "What's your gender?", options: ["Male", "Female", "Other"] },
     { type: "number", text: "What's your weight in lbs?" },
@@ -114,7 +113,6 @@ function CreateDietPlan() {
         }
     }
     
-
     const renderMeals = (meals) => {
         return meals.map((meal, index) => (
             <Box key={index} sx={{ marginBottom: 2 }}>
