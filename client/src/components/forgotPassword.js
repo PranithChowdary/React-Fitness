@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Stack, styled } from '@mui/material'
 import { SuccessMessage, ErrorMessage } from './MessageStyles';
-import nodemailer from 'nodemailer';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -29,31 +29,16 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
 
-  const handleEmail = async (e) => {
-    setemail(e.target.value);
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      const transporter = nodemailer.createTransport({
-          host: 'smtp.example.com',
-          port: 587,
-          secure: false
-      });
-      const mailOptions = {
-          from: 'dollartrends@yahoo.com',
-          to: email,
-          subject: 'Hello from  Fit&Fun',
-          text: message,
-      };
     try {
-        await transporter.sendMail(mailOptions);
-        console.log('Email Sent Successfully');
-        setMessage(response.data.message);
-        setIsError(false);
-
+        console.log(setemail);
+      const response = await axios.post('/api/forgot-password', { email });
+      setMessage(response.data.message);
+      setIsError(false);
     } catch (error) {
-      setMessage('Error sending password reset email',error);
+      setMessage('Error sending password reset email');
       setIsError(true);
     }
   };
@@ -86,7 +71,6 @@ const ForgotPassword = () => {
                                 id="email"
                                 label="Email Address"
                                 name="email"
-                                onChange={handleEmail}
                                 autoComplete="email"
                             />
                         </Grid>

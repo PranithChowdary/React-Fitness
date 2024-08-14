@@ -32,10 +32,11 @@ const LoginForm = () => {
             const response = await axios.post('http://localhost:4000/login', { email, password });
             const { success, message, token } = response.data;
             localStorage.setItem("token", token);
+            localStorage.setItem("user-email", email);
             if (success) {
                 // Handle successful login
-                console.log(message); // Log success message
-                console.log(token);
+                console.log(message); 
+                // console.log(token);
                 console.log(setError);
                 navigate('/home');
                 } else {

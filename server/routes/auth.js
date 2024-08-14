@@ -3,7 +3,9 @@ const router = express.Router();
 const User = require('../models/User');
 const { createSecretToken } = require("../util/SecretToken");
 const { userVerification } = require("../Middleware/Authmiddleware");
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+
 
 // Login route
 router.post('/login', async (req, res) => {
@@ -23,10 +25,11 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Incorrect password or email' });
         }
 
-        createSecretToken(res, user._id);
+        const token = jwt.sign({ user }, process.env.JWT_SECRET, {
+            expiresIn: '30d',
+        });
 
-
-        res.status(200).json({ message: "User logged in successfully", success: true });
+        res.status(200).json({ message: "User logged in successfully", success: true, token });
         
 
     } catch (error) {
@@ -72,5 +75,44 @@ router.post('/register', async (req, res) => {
 
 // Apply userVerification middleware to this route
 router.post('/', userVerification);
+
+//User Profile Route
+router.get('/getUserProfile', async (req, res) => {
+    try {
+        const {useremail} = req.body;
+        const user = await User.findOne({useremail});
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
+//User update Route
+router.post('/updateUserProfile', async (req, res) => {
+    const { name, email, password } = req.body;
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Update fields
+        if (name) user.name = name;
+        if (email) user.email = email;
+        if (password) user.password = password; // Make sure to hash the password before saving
+        // Hashing will be done by User Schema Model
+
+        await user.save();
+
+        res.json({ message: 'Profile updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 
 module.exports = router;

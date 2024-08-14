@@ -1,67 +1,102 @@
-import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Avatar } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, Container, Typography, Paper } from '@mui/material';
+import axios from 'axios';
 
-function Profile({ user, onUpdateUser }) {
-  const [editing, setEditing] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+function Profile() {
+  const useremail = localStorage.getItem('user - email');
+  const [profileData, setProfileData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    // Add any other fields here
+  });
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+  useEffect(() => {
+    // Fetch user profile data from the server
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/getUserProfile', { useremail });
+        setProfileData(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!selectedFile) {
-      alert("Please select a file first!");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('avatar', selectedFile);
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await onUpdateUser(formData);
-      alert("Avatar updated successfully!");
-      setEditing(false);
+      await axios.post('http://localhost:4000/updateUserProfile', profileData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      alert('Profile updated successfully');
     } catch (error) {
-      console.error("Error updating avatar:", error);
-      alert("Failed to update avatar.");
+      console.error('Error updating profile:', error);
+      alert('Failed to update profile');
     }
   };
 
   return (
-    <Box sx={{ mt: 3 }}>
-      {!editing ? (
-        <>
-          <Typography variant="h6">Profile</Typography>
-          <Avatar alt="User Avatar" src={user.avatarUrl} sx={{ width: 56, height: 56, my: 2 }} />
-          <Typography variant="body1">Name: {user.name}</Typography>
-          <Typography variant="body1">Email: {user.email}</Typography>
-          <Button variant="contained" color="primary" onClick={() => setEditing(true)} sx={{ mt: 2 }}>
-            Edit Profile
-          </Button>
-        </>
-      ) : (
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Typography variant="h6">Update Profile</Typography>
+    <Container maxWidth="sm">
+      <Paper elevation={3} style={{ padding: '2rem', marginTop: '2rem' }}>
+        <Typography variant="h5" component="h1" gutterBottom>
+          Your Profile
+        </Typography>
+        <Typography variant='h6' gutterBottom>
+          Welcome {profileData.username}
+        </Typography>
+        <form onSubmit={handleSubmit}>
           <TextField
-            type="file"
-            onChange={handleFileChange}
-            sx={{ my: 2 }}
+            label="Name"
+            name="name"
+            value={profileData.username}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
           />
+          <TextField
+            label="Email"
+            name="email"
+            value={profileData.email}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            value={profileData.password}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          {/* Add more fields as needed */}
           <Button
             type="submit"
             variant="contained"
             color="primary"
+            fullWidth
+            style={{ marginTop: '1rem' }}
           >
-            Update Avatar
+            Update Profile
           </Button>
-          <Button variant="outlined" color="secondary" onClick={() => setEditing(false)} sx={{ mt: 2 }}>
-            Cancel
-          </Button>
-        </Box>
-      )}
-    </Box>
+        </form>
+      </Paper>
+    </Container>
   );
 }
 

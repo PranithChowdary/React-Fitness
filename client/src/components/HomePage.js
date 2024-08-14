@@ -23,7 +23,6 @@ const Home = () => {
     const [quote, setQuote] = useState('');
     const navigate = useNavigate();
 
-    const settings = ['Profile', 'Logout'];
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const pageClick = (path) => {
@@ -83,6 +82,10 @@ const Home = () => {
         setAnchorElUser(null);
     };
 
+    const handleLogoutClick = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
 
     useEffect(() => {
         if (quotes.length === 0) {
@@ -129,11 +132,11 @@ const Home = () => {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        {settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                <Button textAlign="center" onClick={() => pageClick('/')}>{setting}</Button>
-                            </MenuItem>
-                        ))}
+                    <MenuItem onClick={handleCloseUserMenu}>
+                        <Button textAlign="center" onClick={() => pageClick('/profile')}>Profile</Button>
+                        <br></br>
+                        <Button textAlign="center" onClick={handleLogoutClick}>Logout</Button>
+                    </MenuItem>
                     </Menu>
                 </Box>
                 </Toolbar>
