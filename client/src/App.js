@@ -7,7 +7,7 @@ import Workoutplan from './components/workoutplan';
 import Progress from './components/Progress';
 import SignUp from './components/SignUp';
 import HomePage from './components/HomePage';
-import '/Users/pranith/Desktop/React-Fitness/client/src/App.css'
+import './App.css'
 import ForgotPassword from './components/forgotPassword';
 import DietPlan from './components/dietplan';
 import ExerciseDetail from './pages/ExerciseDetail';
