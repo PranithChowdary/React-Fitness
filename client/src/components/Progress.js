@@ -18,7 +18,7 @@ const WorkoutProgress = () => {
     useEffect(() => {
         const fetchPrimaryPlan = async () => {
             try {
-                const response = await axios.get('react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app/getWorkoutPlans');
+                const response = await axios.get('https://react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app//getWorkoutPlans');
                 const primary = response.data.find(plan => plan._id === primaryPlan.primaryPlan._id);
                 const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                 const weeklyData = weekDays.map(day => ({

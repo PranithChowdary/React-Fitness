@@ -22,7 +22,7 @@ function DietPlan() {
     useEffect(() => {
         const fetchPlans = async () => {
             try {
-                const response = await axios.get('react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app/getDietPlans');
+                const response = await axios.get('https://react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app//getDietPlans');
                 // console.log('Fetched data:', response.data[0].plan);
                 setDiet(response.data[0].plan);
             } catch (error) {

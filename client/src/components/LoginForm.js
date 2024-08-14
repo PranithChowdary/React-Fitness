@@ -29,7 +29,7 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app/login', { email, password });
+            const response = await axios.post('https://react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app//login', { email, password });
             const { success, message, token } = response.data;
             localStorage.setItem("token", token);
             localStorage.setItem("user-email", email);
