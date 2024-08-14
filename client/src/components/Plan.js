@@ -129,7 +129,7 @@ function Plan() {
 
   const handleSavePlan = async () => {
     try {
-      const response = await axios.post('https://react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app//saveWorkoutPlan', { muscleGroup: formData.muscleGroup, plan: workoutPlan });
+      const response = await axios.post('https://localhost:4000/saveWorkoutPlan', { muscleGroup: formData.muscleGroup, plan: workoutPlan });
       console.log('Plan saved');
     } catch (error) {
       console.error('Error saving plan:', error);

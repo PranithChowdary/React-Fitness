@@ -28,7 +28,7 @@ const SavedPlans = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axios.get('https://react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app//getWorkoutPlans');
+        const response = await axios.get('https://localhost:4000/getWorkoutPlans');
         setPlans(response.data);
       } catch (error) {
         console.error('Error fetching plans:', error);

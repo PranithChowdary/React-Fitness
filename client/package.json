@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Pranith Chowdary K",
-  "proxy": "https://react-fitness-3dsk-6yb6xhk6b-pranithchowdarys-projects.vercel.app/",
+  "proxy": "https://localhost:4000",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
