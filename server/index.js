@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const authRoute = require("./routes/auth");
 const generateRoute = require('./routes/workout');
 const workoutplanRoute = require('./routes/workoutplan');
+const emailRoute = require('./routes/email');
 const dietplanRoute = require('./routes/dietplan');
 require("dotenv").config();
 
@@ -35,6 +36,7 @@ app.use(express.json());
 // Routes
 app.use('/', authRoute);
 app.use('/', generateRoute);
+app.use('/', emailRoute);
 app.use('/', workoutplanRoute);
 app.use('/', dietplanRoute);
 

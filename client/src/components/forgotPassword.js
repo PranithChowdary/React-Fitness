@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Stack, styled } from '@mui/material'
+import { Stack, styled } from '@mui/material';
 import { SuccessMessage, ErrorMessage } from './MessageStyles';
 import axios from 'axios';
 
@@ -31,16 +31,17 @@ const ForgotPassword = () => {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        console.log(setemail);
-      const response = await axios.post('/api/forgot-password', { email });
-      setMessage(response.data.message);
-      setIsError(false);
-    } catch (error) {
-      setMessage('Error sending password reset email');
-      setIsError(true);
-    }
+      try {
+          const response = await axios.post('http://localhost:4000/forgot-password', { email });
+
+          if (response.data.success) {
+              setMessage("A password reset link has been sent to your email.");
+          } else {
+              setMessage("Failed to send reset link. Please check your email.");
+          }
+      } catch (error) {
+          setMessage("An error occurred. Please try again.");
+      }   
   };
 
   return (
@@ -69,6 +70,8 @@ const ForgotPassword = () => {
                                 required
                                 fullWidth
                                 id="email"
+                                value={email}
+                                onChange={(e) => setemail(e.target.value)}
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import Profile from './components/Profile'
 import LoginForm from './components/LoginForm';
+import ResetPassword from './components/resetpassword';
 import Workoutplan from './components/workoutplan';
 import Progress from './components/Progress';
 import SignUp from './components/SignUp';
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path='/ResetPassword' element={<ResetPassword/>} />
         <Route path='/workoutplan' element={<Workoutplan />} />
         <Route path='/progress' element={<Progress />} />
         <Route path='/dietplan' element={<DietPlan />} />

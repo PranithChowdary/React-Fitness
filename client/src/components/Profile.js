@@ -3,7 +3,7 @@ import { TextField, Button, Container, Typography, Paper } from '@mui/material';
 import axios from 'axios';
 
 function Profile() {
-  const useremail = localStorage.getItem('user - email');
+  const useremail = localStorage.getItem('user-email');
   const [profileData, setProfileData] = useState({
     name: '',
     email: '',
