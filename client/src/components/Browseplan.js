@@ -55,6 +55,15 @@ const SavedPlans = () => {
     navigate('/progress', { state: { primaryPlan: selectedPlan } });
   };
 
+  const handleArchive = async (planId) => {
+    try {
+      await axios.post('http://localhost:4000/archiveWorkoutPlan', { planId });
+      setPlans(plans.filter(plan => plan._id !== planId)); // Remove the archived plan from the list
+    } catch (error) {
+      console.error('Error archiving plan:', error);
+    }
+  };
+
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
@@ -65,7 +74,7 @@ const SavedPlans = () => {
           {plans.map((plan, index) => (
             <Box key={index} m={2} p={2} border={1} borderRadius={4} width={400}>
               <Typography variant="h6">{plan.muscleGroup}</Typography>
-              <Button variant="contained" onClick={() => handleOpen(plan)}>
+              <Button variant="contained" onClick={() => handleOpen(plan)} sx={{ mt: 2 }}>
                 View Plan
               </Button>
               <br></br>
@@ -79,11 +88,19 @@ const SavedPlans = () => {
                   />
                 }
                 label={primaryPlan === plan._id ? 'Primary Plan' : 'Set as Primary'}
-                sx={{ mt: 1 }}
+                sx={{ mt: 2 }}
                 disabled={primaryPlan && primaryPlan !== plan._id && primaryPlan !== null}
               />
-              <Button variant="contained" onClick={handleViewProgress} disabled={!primaryPlan}>
+              <Button variant="contained" onClick={handleViewProgress} disabled={!primaryPlan} sx={{ mt: 2 }}>
                 View Progress
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => handleArchive(plan._id)}
+                sx={{ mt: 2 }}
+              >
+                Archive
               </Button>
             </Box>
           ))}

@@ -43,7 +43,7 @@ const CustomDrawer = ({ open, onClose, pageClick }) => {
                         </ListItemIcon>
                         <ListItemText primary="Progress Tracker" />
                     </ListItem>
-                    <ListItem button onClick={() => pageClick('/devTeam')}>
+                    {/* <ListItem button onClick={() => pageClick('/devTeam')}>
                         <ListItemIcon>
                             <ThreePIcon />
                         </ListItemIcon>
@@ -54,7 +54,7 @@ const CustomDrawer = ({ open, onClose, pageClick }) => {
                             <InventoryIcon />
                         </ListItemIcon>
                         <ListItemText primary="Logout" />
-                    </ListItem>
+                    </ListItem> */}
                 </List>
             </div>
         </Drawer>
