@@ -111,7 +111,3 @@ Before you begin, make sure you have the following software installed on your ma
 3. Use the application features including user authentication, workout planning, diet planning, and password reset functionality.
 
 4. The server will run on `http://localhost:4000` by default.
-
----
-
-Feel free to customize this `README.md` file based on your project's specific needs or any additional instructions you might have.
