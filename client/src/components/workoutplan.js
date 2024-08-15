@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 // import ChatComponent from './chat';
 import Plan from './Plan';
-import Archive from './Archive'
+import Archive from './workoutArchive';
 import SavedPlans from './Browseplan';
 
 function CustomTabPanel(props) {

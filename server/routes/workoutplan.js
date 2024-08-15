@@ -16,7 +16,7 @@ router.post('/saveWorkoutPlan', async (req, res) => {
 router.get('/getWorkoutPlans', async (req, res) => {
   try {
 
-    const workoutPlans = await WorkoutPlan.find();
+    const workoutPlans = await WorkoutPlan.find({ isArchived: false });
     res.json(workoutPlans);
   } catch (error) {
     console.error('Error fetching plans:', error); // Log the error
