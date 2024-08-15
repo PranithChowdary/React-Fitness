@@ -252,7 +252,7 @@ function Plan() {
                         <FormControlLabel
                           key={option}
                           value={option}
-                          control={<Radio required />}
+                          control={<Radio/>}
                           label={option}
                         />
                       ))}
@@ -269,7 +269,7 @@ function Plan() {
                       value={formData.heightFeet}
                       onChange={handleInputChange}
                       sx={{ mt: 1, mr: 1 }}
-                      required
+                      
                     />
                     <TextField
                       label="Inches"
@@ -279,7 +279,7 @@ function Plan() {
                       value={formData.heightInches}
                       onChange={handleInputChange}
                       sx={{ mt: 1}}
-                      required
+                      
                     />
                   </>
                 )}
@@ -292,7 +292,7 @@ function Plan() {
                     value={formData.weight}
                     onChange={handleInputChange}
                     sx={{ mt: 1 }}
-                    required
+                    
                   />
                 )}
                 {question.type === "checkbox" && (
@@ -307,7 +307,7 @@ function Plan() {
                               value={option}
                               checked={formData.goals.includes(option)}
                               onChange={handleInputChange}
-                              required
+                              
                             />
                           }
                           label={option}
@@ -318,7 +318,7 @@ function Plan() {
                 )}
                 {question.type === "select" && (
                   <FormControl fullWidth sx={{ mt: 1 }}>
-                    <InputLabel htmlFor="muscleGroup" required>Muscle groups</InputLabel>
+                    <InputLabel htmlFor="muscleGroup" >Muscle groups</InputLabel>
                     <Select
                       id="muscleGroup"
                       name="muscleGroup"
@@ -344,7 +344,7 @@ function Plan() {
                       variant="standard"
                       onChange={handleInputChange}
                       sx={{ mt: 1, mr: 1, width:500}}
-                      required
+                      
                     />
                   </>
                 )}

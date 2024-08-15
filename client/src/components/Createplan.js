@@ -211,7 +211,7 @@ function CreateDietPlan() {
                                                 <FormControlLabel
                                                     key={option}
                                                     value={option}
-                                                    control={<Radio required />}
+                                                    control={<Radio  />}
                                                     label={option}
                                                 />
                                             ))}
@@ -225,8 +225,7 @@ function CreateDietPlan() {
                                         type="number"
                                         value={formData[question.text.split(' ').slice(-2).join('')]}
                                         onChange={handleInputChange}
-                                        sx={{ mt: 1 }}
-                                        required
+                                        sx={{ mt: 1 }}                                
                                     />
                                 )}
                                 {question.type === "checkbox" && (
@@ -241,7 +240,7 @@ function CreateDietPlan() {
                                                             value={option}
                                                             checked={formData.dietaryPreferences.includes(option)}
                                                             onChange={handleInputChange}
-                                                            required
+                                                            
                                                         />
                                                     }
                                                     label={option}
@@ -252,12 +251,12 @@ function CreateDietPlan() {
                                 )}
                                 {question.type === "select" && (
                                     <FormControl fullWidth sx={{ mt: 1 }}>
-                                        <InputLabel required>{question.text}</InputLabel>
+                                        <InputLabel >{question.text}</InputLabel>
                                         <Select
                                             name="foodAllergies"
                                             value={formData.foodAllergies}
                                             onChange={handleInputChange}
-                                            required
+                                            
                                         >
                                             {question.options.map((option) => (
                                                 <MenuItem key={option} value={option}>
