@@ -110,7 +110,7 @@ Before you begin, make sure you have the following software installed on your ma
 
 3. Use the application features including user authentication, workout planning, diet planning, and password reset functionality.
 
-4. The server will run on `http://localhost:5000` by default.
+4. The server will run on `http://localhost:4000` by default.
 
 ---
 
