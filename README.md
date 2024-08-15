@@ -15,3 +15,10 @@ open another console tab and run server
   npm init
   npm start
 </code>
+
+
+
+Updates
+* Removal of * in the input voice
+* Notification Email message body for Reset Link
+* Demo video

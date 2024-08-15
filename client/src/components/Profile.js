@@ -15,7 +15,7 @@ function Profile() {
     // Fetch user profile data from the server
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get('https://localhost:4000/getUserProfile', { useremail });
+        const response = await axios.get('http://localhost:4000/getUserProfile', { useremail });
         setProfileData(response.data);
         console.log(response.data)
       } catch (error) {
@@ -37,7 +37,7 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://localhost:4000/updateUserProfile', profileData, {
+      await axios.post('http://localhost:4000/updateUserProfile', profileData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

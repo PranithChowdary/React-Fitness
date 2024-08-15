@@ -52,7 +52,7 @@ const RegistrationForm = () => {
         e.preventDefault();
         try {
             const { data } = await axios.post(
-                "https://localhost:4000/register",
+                "http://localhost:4000/register",
                 { ...inputValue },
                 { withCredentials: true }
             );
