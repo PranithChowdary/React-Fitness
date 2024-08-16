@@ -102,6 +102,9 @@ Before you begin, make sure you have the following software installed on your ma
 
    If you are using Two-Factor Authentication (2FA), make sure to generate an app-specific password from your Google account settings and use it here.
 
+   Here is a sample mail, how this works
+   ![alt text](http://url/to/img.png)
+
 ## Running the Application
 
 1. Ensure that both the client and server are set up and running.
