@@ -216,8 +216,8 @@ function Plan() {
                   </TableContainer>
                   <br></br>
                   <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-                  <Button variant="contained" onClick={() => setSubmitted(false)}>Generate Another Plan</Button>
-                  <Button variant="contained" onClick={handleSavePlan}>Save Plan</Button>
+                      <Button variant="contained" onClick={() => setSubmitted(false)} sx={{fontWeight: 'bold' }}>Generate Another Plan</Button>
+                      <Button variant="contained" onClick={handleSavePlan} sx={{ fontWeight: 'bold' }}>Save Plan</Button>
                   </Box>
                 </div>
               )
@@ -232,7 +232,7 @@ function Plan() {
                   variant="contained"
                   startIcon={<Add />}
                   onClick={handleNext}
-                  sx={{ width: '100%', mt: 1 }}
+                  sx={{ width: '100%', mt: 1, fontWeight: 'bold' }}
                 >
                   Create Plan
                 </Button>

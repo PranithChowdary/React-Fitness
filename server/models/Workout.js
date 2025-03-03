@@ -6,6 +6,10 @@ const WorkoutPlan = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    primaryPlan: {
+        type: Boolean,
+        default: false
+    },
     plan: Object
 });
 

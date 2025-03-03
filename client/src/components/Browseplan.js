@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import plan from '../assets/test.json'//
 import axios from 'axios';
 import { Container, 
   Box,
   Typography, 
   Button, 
-  Switch,
-  FormControlLabel,
   Modal,
   Table,
   TableBody,
@@ -20,17 +16,14 @@ import { Container,
 
 const SavedPlans = () => {
   const [plans, setPlans] = useState([]);
-  const [primaryPlan, setPrimaryPlan] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [open, setOpen] = useState(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPlans = async () => {
       try {
         const response = await axios.get('http://localhost:4000/getWorkoutPlans');
-        setPlans(response.data);
+        setPlans (response.data);
       } catch (error) {
         console.error('Error fetching plans:', error);
       }
@@ -46,14 +39,6 @@ const SavedPlans = () => {
   const handleClose = () => {
     setOpen(false);
     setSelectedPlan(null);
-  };
-
-  const handleTogglePrimary = (planId) => {
-      setPrimaryPlan(planId === primaryPlan ? null : planId);
-  }
-  const handleViewProgress = () => {
-    const selectedPlan = plans.find(plan => plan._id === primaryPlan);
-    navigate('/progress', { state: { primaryPlan: selectedPlan } });
   };
 
   const handleArchive = async (planId) => {
@@ -75,31 +60,14 @@ const SavedPlans = () => {
           {plans.map((plan, index) => (
             <Box key={index} m={2} p={2} border={1} borderRadius={4} width={400}>
               <Typography variant="h6">{plan.muscleGroup}</Typography>
-              <Button variant="contained" onClick={() => handleOpen(plan)} sx={{ mt: 2 }}>
+              <Button variant="contained" onClick={() => handleOpen(plan)} sx={{ mt: 2, fontWeight: 'bold' }}>
                 View Plan
-              </Button>
-              <br></br>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={primaryPlan === plan._id}
-                    onChange={() => handleTogglePrimary(plan._id)}
-                    name="primaryPlanSwitch"
-                    color="primary"
-                  />
-                }
-                label={primaryPlan === plan._id ? 'Primary Plan' : 'Set as Primary'}
-                sx={{ mt: 2 }}
-                disabled={primaryPlan && primaryPlan !== plan._id && primaryPlan !== null}
-              />
-              <Button variant="contained" onClick={handleViewProgress} disabled={!primaryPlan} sx={{ mt: 2 }}>
-                View Progress
               </Button>
               <Button
                 variant="contained"
                 color="secondary"
                 onClick={() => handleArchive(plan._id)}
-                sx={{ mt: 2 }}
+                sx={{ mt: 2, ml: 2, fontWeight: 'bold' }}
               >
                 Archive
               </Button>

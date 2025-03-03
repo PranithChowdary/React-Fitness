@@ -15,16 +15,21 @@ function Profile() {
     // Fetch user profile data from the server
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/getUserProfile', { useremail });
+        const response = await axios.get('http://localhost:4000/getUserProfile', {
+          params: { email: useremail },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
         setProfileData(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching profile data:', error);
       }
     };
 
     fetchProfileData();
-  }, []);
+  }, [useremail]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

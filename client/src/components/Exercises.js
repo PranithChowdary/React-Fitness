@@ -1,40 +1,42 @@
 import React, { useState, useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
-import { fetchData, exerciseOptions } from "../utils/fetchData";
 import styled from "styled-components";
 import ExerciseCard from "./ExcerciseCard";
-const Exercises = ({ exercises, bodyPart, setExercises }) => {
-  // console.log(exercises);
 
+const Exercises = ({ exercises, bodyPart, setExercises }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const ExercisePerPage = 9;
   const indexOfLastExercise = currentPage * ExercisePerPage;
   const indexOfFirstExercise = indexOfLastExercise - ExercisePerPage;
-  const currentExercises = exercises?.slice(
-    indexOfFirstExercise,
-    indexOfLastExercise
-  );
 
-  // useEffect(() =>)
+  // Ensure exercises is an array
+  const currentExercises = Array.isArray(exercises)
+    ? exercises.slice(indexOfFirstExercise, indexOfLastExercise)
+    : [];
 
   useEffect(() => {
     const fetchExerciseData = async () => {
-      let ExerciseData = [];
-      if (bodyPart === "all") {
-        ExerciseData = await fetchData(
-          "https://exercisedb.p.rapidapi.com/exercises",
-          exerciseOptions
-        );
-      } else {
-        ExerciseData = await fetchData(
-          `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
-          exerciseOptions
-        );
+      const url = bodyPart === "all"
+        ? 'https://exercisedb.p.rapidapi.com/exercises'
+        : `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`;
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': 'bef2d0fefbmsh76da619c07b83c5p1745bdjsnbeddb3c1d98b',
+          'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+        }
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const ExerciseData = await response.json();
+        setExercises(ExerciseData);
+      } catch (error) {
+        console.error('Error fetching exercises data:', error);
       }
-      setExercises(ExerciseData);
     };
     fetchExerciseData();
-  }, [bodyPart]);
+  }, [bodyPart, setExercises]);
 
   const paginate = (e, value) => {
     setCurrentPage(value);
@@ -46,12 +48,12 @@ const Exercises = ({ exercises, bodyPart, setExercises }) => {
       <h2>Showing Exercises Results</h2>
       <div className="card">
         {currentExercises.map((exercise, index) => (
-          <ExerciseCard key={index} exercise={exercise} flg={false} />
+          <ExerciseCard key={index} exercise={exercise} />
         ))}
       </div>
 
       <PaginationDiv>
-        {exercises.length > ExercisePerPage && (
+        {Array.isArray(exercises) && exercises.length > ExercisePerPage && (
           <Pagination
             shape="rounded"
             defaultPage={1}
@@ -77,14 +79,11 @@ const ExerciseContainer = styled.div`
   }
   .card {
     margin: auto auto;
-    /* border: 1px solid red; */
-
     display: flex;
     width: 95%;
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: center;
-
     gap: 3rem;
   }
 
@@ -98,8 +97,6 @@ const ExerciseContainer = styled.div`
     }
     .card {
       margin: auto auto;
-      /* border: 1px solid red; */
-
       display: flex;
       width: 95%;
       flex-wrap: wrap;
@@ -120,7 +117,6 @@ const ExerciseContainer = styled.div`
       display: flex;
       width: 85vw;
       flex-wrap: nowrap;
-
       flex-direction: column;
       justify-content: space-between;
       align-content: center;

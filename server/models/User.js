@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const WorkoutPlan = require('./Workout');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -15,12 +16,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Your password is required"],
     },
-    Original: {
+    originalPassword: {
         type: String
+    },
+    primaryPlanId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: WorkoutPlan,
+        default: null, // Ensures it starts as null
     },
     createdAt: {
         type: Date,
-        default: new Date(),
+        default: Date.now,
     },
 });
 
@@ -30,7 +36,7 @@ userSchema.pre("save", async function (next) {
         return next();
     }
     try {
-        this.Original = this.password;
+        this.originalPassword = this.password;
         this.password = await bcrypt.hash(this.password, 12);
         next();
     } catch (err) {

@@ -6,6 +6,7 @@ const authRoute = require("./routes/auth");
 const generateRoute = require('./routes/workout');
 const workoutplanRoute = require('./routes/workoutplan');
 const emailRoute = require('./routes/email');
+const workoutRoutes = require('./routes/workoutplan');
 const dietplanRoute = require('./routes/dietplan');
 require("dotenv").config();
 
@@ -39,6 +40,7 @@ app.use('/', generateRoute);
 app.use('/', emailRoute);
 app.use('/', workoutplanRoute);
 app.use('/', dietplanRoute);
+app.use('/api/workout', workoutRoutes);
 
 const port = process.env.PORT || 4000;
 

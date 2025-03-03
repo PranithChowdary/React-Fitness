@@ -5,7 +5,7 @@ const { createSecretToken } = require("../util/SecretToken");
 const { userVerification } = require("../Middleware/Authmiddleware");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
+const UserProgress = require('../models/UserProgress');
 
 // Login route
 router.post('/login', async (req, res) => {
@@ -79,13 +79,17 @@ router.post('/', userVerification);
 //User Profile Route
 router.get('/getUserProfile', async (req, res) => {
     try {
-        const {useremail} = req.body;
-        const user = await User.findOne({useremail});
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        res.json(user);
+        const user = await User.findById(userId).populate('primaryPlanId'); // Populate plan details
+
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        res.json({
+            email: user.email,
+            username: user.username,
+            primaryPlanId: user.primaryPlanId,
+        });
     } catch (error) {
+        console.error('Error fetching user profile:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
@@ -111,6 +115,93 @@ router.post('/updateUserProfile', async (req, res) => {
 
         res.json({ message: 'Profile updated successfully' });
     } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// // Save user progress route
+// router.post('/saveProgress', userVerification, async (req, res) => {
+//     console.log('Received saveProgress request:', req);
+//     const { progress } = req.body;
+//     const userId = req.user?.id;
+
+//     console.log('Received saveProgress request:', { userId, progress });
+
+//     if (!userId) {
+//         console.log('Error: User ID missing');
+//         return res.status(400).json({ status: false, message: 'User not authenticated' });
+//     }
+
+//     try {
+//         let userProgress = await UserProgress.findOne({ userId });
+
+//         if (!userProgress) {
+//             console.log('Creating new progress entry...');
+//             userProgress = new UserProgress({ userId, progress });
+//         } else {
+//             console.log('Updating existing progress...');
+//             userProgress.progress = { ...userProgress.progress, ...progress };
+//         }
+
+//         await userProgress.save();
+//         console.log('Progress saved successfully:', userProgress);
+
+//         res.status(200).json({ status: true, message: 'Progress saved successfully' });
+//     } catch (error) {
+//         console.error('Error saving progress:', error);
+//         res.status(500).json({ status: false, message: 'Internal server error' });
+//     }
+// });
+
+
+// // Get user progress route
+// router.get('/getProgress', userVerification, async (req, res) => {
+//     const userId = req.user.id;
+
+//     try {
+//         const userProgress = await UserProgress.findOne({ userId });
+//         if (!userProgress) {
+//             return res.status(404).json({ message: 'Progress not found' });
+//         }
+//         res.status(200).json(userProgress.progress);
+//     } catch (error) {
+//         console.error('Error retrieving progress:', error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// });
+
+
+
+router.post('/setPrimaryPlan', userVerification, async (req, res) => {
+    try {
+        const { planId } = req.body;
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        user.primaryPlanId = planId;
+        await user.save();
+
+        // Send updated primary plan ID
+        res.status(200).json({ primaryPlanId: user.primaryPlanId });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to set primary plan' });
+    }
+});
+
+router.get('/getPrimaryPlan', userVerification, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).populate('primaryPlanId');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (!user.primaryPlanId) {
+            return res.status(200).json({ primaryPlanId: null }); // Ensure response is well-formed
+        }
+
+        res.json({ primaryPlanId: user.primaryPlanId._id }); // Send only the ID
+    } catch (error) {
+        console.error('Error fetching primary plan:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
