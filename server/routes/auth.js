@@ -5,7 +5,7 @@ const { createSecretToken } = require("../util/SecretToken");
 const { userVerification } = require("../Middleware/Authmiddleware");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const UserProgress = require('../models/UserProgress');
+// const UserProgress = require('../models/UserProgress');
 
 // Login route
 router.post('/login', async (req, res) => {
@@ -79,7 +79,8 @@ router.post('/', userVerification);
 //User Profile Route
 router.get('/getUserProfile', async (req, res) => {
     try {
-        const user = await User.findById(userId).populate('primaryPlanId'); // Populate plan details
+        const { useremail } = req.body;
+        const user = await User.findOne({ useremail });
 
         if (!user) return res.status(404).json({ message: 'User not found' });
 

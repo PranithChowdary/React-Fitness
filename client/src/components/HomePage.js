@@ -9,6 +9,7 @@ import quotes from './qoutes.json';
 import SearchExercises from './SearchExcercises';
 import Exercises from '../components/Exercises';
 import Buttons from './buttons';
+import UserDetails from './UserDetails';
 import useravatar from '../assets/images/user.jpg';
 
 const Home = () => {
@@ -35,12 +36,44 @@ const Home = () => {
         },
         {
             id: '3',
-            message: 'Hi {previousValue}, nice to meet you!',
+            message: 'Hi {previousValue}, nice to meet you! How can I assist you today?',
             trigger: '4',
         },
         {
             id: '4',
-            message: 'Choose one of the below to assist you',
+            options: [
+                { value: 'workout', label: 'Workout Plan', trigger: 'workout' },
+                { value: 'progress', label: 'Progress Tracker', trigger: 'progress' },
+                { value: 'diet', label: 'Diet Plan', trigger: 'diet' },
+                { value: 'user details', label: 'User Details', trigger: 'user details' },
+                { value: 'End', label: 'End', trigger: '6' },
+            ],
+        },
+        {
+            id: 'workout',
+            message: 'You can create and view your workout plans here. /progress',
+            trigger: '5',
+        },
+        {
+            id: 'progress',
+            message: 'You can track your progress here.',
+            trigger: '5',
+        },
+        {
+            id: 'diet',
+            message: 'You can create and view your diet plans here.',
+            trigger: '5',
+        },
+        {
+            id: 'quote',
+            message: 'Here is a motivational quote for you: "{quote}"',
+            trigger: '5',
+        },
+        {
+            id: 'user details',
+            component: (
+                <UserDetails />
+            ),
             trigger: '5',
         },
         {
@@ -48,6 +81,16 @@ const Home = () => {
             component: (
                 <Buttons pageClick={pageClick} />
             ),
+            trigger:'6',
+        },
+        {
+            id: '6',
+            message: 'How can I assist you further?',
+            trigger: '4',
+        },
+        {
+            id: '7',
+            message: 'Thank you for using our services. Have a great day!',
             end: true,
         }
     ];
@@ -126,9 +169,9 @@ const Home = () => {
                             onClose={handleCloseUserMenu}
                         >
                             <MenuItem onClick={handleCloseUserMenu}>
-                                <Button textalign="center" onClick={() => pageClick('/profile')}>Profile</Button>
+                                <Button textAlign="center" onClick={() => pageClick('/profile')}>Profile</Button>
                                 <br />
-                                <Button textalign="center" onClick={handleLogoutClick}>Logout</Button>
+                                <Button textAlign="center" onClick={handleLogoutClick}>Logout</Button>
                             </MenuItem>
                         </Menu>
                     </Box>

@@ -65,6 +65,7 @@ function Profile() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
+            variant="standard"
             label="Name"
             name="name"
             value={profileData.username}
@@ -73,6 +74,7 @@ function Profile() {
             margin="normal"
           />
           <TextField
+            variant="standard"
             label="Email"
             name="email"
             value={profileData.email}
@@ -81,6 +83,7 @@ function Profile() {
             margin="normal"
           />
           <TextField
+            variant="standard"
             label="Password"
             name="password"
             type="password"
