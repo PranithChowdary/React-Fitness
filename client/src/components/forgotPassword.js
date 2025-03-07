@@ -32,7 +32,7 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
       try {
-          const response = await axios.post('http://localhost:4000/forgot-password', { email });
+          const response = await axios.post('https://react-fitness-backend-xq9u.onrender.com/forgot-password', { email });
 
           if (response.data.success) {
               setMessage("A password reset link has been sent to your email.");

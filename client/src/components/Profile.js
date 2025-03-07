@@ -15,7 +15,7 @@ function Profile() {
     // Fetch user profile data from the server
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/getUserProfile', {
+        const response = await axios.get('https://react-fitness-backend-xq9u.onrender.com/getUserProfile', {
           params: { email: useremail },
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -42,7 +42,7 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:4000/updateUserProfile', profileData, {
+      await axios.post('https://react-fitness-backend-xq9u.onrender.com/updateUserProfile', profileData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

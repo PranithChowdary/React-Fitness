@@ -20,7 +20,7 @@ const WorkoutProgress = () => {
     useEffect(() => {
         const fetchPlans = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/getWorkoutPlans');
+                const response = await axios.get('https://react-fitness-backend-xq9u.onrender.com/getWorkoutPlans');
                 if (response.data.length === 0) {
                     setError('No plans available. Please create a workout plan to track progress.');
                 } else {
@@ -40,7 +40,7 @@ const WorkoutProgress = () => {
         if (selectedPlan) {
             const fetchPlanData = async () => {
                 try {
-                    const response = await axios.get('http://localhost:4000/getWorkoutPlans');
+                    const response = await axios.get('https://react-fitness-backend-xq9u.onrender.com/getWorkoutPlans');
                     const primaryPlan = response.data.find(plan => plan._id === selectedPlan);
 
                     if (!primaryPlan) {

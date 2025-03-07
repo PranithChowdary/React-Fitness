@@ -29,7 +29,7 @@ function ResetPassword({ email }) {
         }
 
         try {
-            const response = await axios.post('http://localhost:4000/updateUserProfile', { email, password });
+            const response = await axios.post('https://react-fitness-backend-xq9u.onrender.com/updateUserProfile', { email, password });
 
             if (response.data.message === 'Profile updated successfully') {
                 setSuccess("Password reset successfully.");

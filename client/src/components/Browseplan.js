@@ -22,7 +22,7 @@ const SavedPlans = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/getWorkoutPlans');
+        const response = await axios.get('https://react-fitness-backend-xq9u.onrender.com/getWorkoutPlans');
         setPlans (response.data);
       } catch (error) {
         console.error('Error fetching plans:', error);
@@ -43,7 +43,7 @@ const SavedPlans = () => {
 
   const handleArchive = async (planId) => {
     try {
-      await axios.post('http://localhost:4000/archiveWorkoutPlan', { planId });
+      await axios.post('https://react-fitness-backend-xq9u.onrender.com/archiveWorkoutPlan', { planId });
       setPlans(plans.filter(plan => plan._id !== planId)); // Remove the archived plan from the list
     } catch (error) {
       console.error('Error archiving plan:', error);

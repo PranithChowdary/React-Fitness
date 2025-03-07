@@ -52,7 +52,7 @@ const RegistrationForm = () => {
         e.preventDefault();
         try {
             const { data } = await axios.post(
-                "http://localhost:4000/register",
+                "https://react-fitness-backend-xq9u.onrender.com/register",
                 { ...inputValue },
                 { withCredentials: true }
             );

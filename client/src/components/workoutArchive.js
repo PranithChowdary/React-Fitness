@@ -10,7 +10,7 @@ const ArchivePlans = () => {
     useEffect(() => {
         const fetchArchivedPlans = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/getArchivedPlans');
+                const response = await axios.get('https://react-fitness-backend-xq9u.onrender.com/getArchivedPlans');
                 setArchivedPlans(response.data);
             } catch (error) {
                 console.error('Error fetching archived plans:', error);

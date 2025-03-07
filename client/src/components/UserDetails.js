@@ -12,7 +12,7 @@ const UserDetails = ({ pageClick }) => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const userResponse = await axios.get('http://localhost:4000/getUserProfile', {
+                const userResponse = await axios.get('https://react-fitness-backend-xq9u.onrender.com/getUserProfile', {
                     params: { email: useremail },
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -20,14 +20,14 @@ const UserDetails = ({ pageClick }) => {
                 });
                 setUserDetails(userResponse.data);
 
-                const workoutResponse = await axios.get('http://localhost:4000/getWorkoutPlans', {
+                const workoutResponse = await axios.get('https://react-fitness-backend-xq9u.onrender.com/getWorkoutPlans', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 });
                 setWorkoutPlans(workoutResponse.data);
 
-                const dietResponse = await axios.get('http://localhost:4000/getDietPlans', {
+                const dietResponse = await axios.get('https://react-fitness-backend-xq9u.onrender.com/getDietPlans', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
